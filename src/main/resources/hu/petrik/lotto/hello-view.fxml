@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <GridPane alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.petrik.lotto.HelloController">
    <columnConstraints>
@@ -13,8 +14,11 @@
       <RowConstraints maxHeight="50" minHeight="50" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button alignment="CENTER" maxWidth="90" minWidth="90" mnemonicParsing="false" text="Sorsol" textAlignment="CENTER" fx:id="buttonSorsol"/>
-      <Label alignment="CENTER" maxWidth="90" minWidth="90" text="1" textAlignment="CENTER" GridPane.columnIndex="1" fx:id="labelSzam"/>
-      <Label alignment="CENTER" maxHeight="180" minWidth="180" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="1" fx:id="labelSzamok"/>
+      <Button fx:id="buttonSorsol" alignment="CENTER" maxWidth="90" minWidth="90" mnemonicParsing="false" onMouseClicked="#sorsol" text="Sorsol" textAlignment="CENTER" />
+      <Label fx:id="labelSzam" alignment="CENTER" maxWidth="90" minWidth="90" text="-" textAlignment="CENTER" GridPane.columnIndex="1">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <Label fx:id="labelSzamok" alignment="CENTER" maxHeight="180" minWidth="180" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="1" />
    </children>
 </GridPane>
