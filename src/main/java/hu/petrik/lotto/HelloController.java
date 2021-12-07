@@ -6,10 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class HelloController {
 
@@ -23,27 +20,43 @@ public class HelloController {
     private int counter = 0;
     private List<Integer> szamok = new ArrayList<>();
     private String nyeroSzamok = "";
+    private boolean kesz = false;
 
 
     public void sorsol(MouseEvent mouseEvent) {
         if(!sorsolE){
-            sorsolE = true;
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    counter++;
-                    if(counter >= 10){
-                        this.cancel();
-                        sorsolE = false;
-                        counter = 0;
-                        ujNyeroSzam();
+            if(!kesz){
+                if(nyeroSzamok == "") labelSzamok.setText("");
+                sorsolE = true;
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        counter++;
+                        if(counter >= 10){
+                            this.cancel();
+                            sorsolE = false;
+                            counter = 0;
+                            ujNyeroSzam();
+                        }
+                        else{
+                            Platform.runLater(() -> labelSzam.setText((int) Math.floor(Math.random() * 90 + 1) + ""));
+                        }
                     }
-                    else{
-                        Platform.runLater(() -> labelSzam.setText((int) Math.floor(Math.random() * 90 + 1) + ""));
-                    }
+                }, 0, 100);
+            }
+            else{
+                Collections.sort(szamok);
+                nyeroSzamok = "";
+                for(int szam : szamok){
+                    nyeroSzamok += szam + "   ";
                 }
-            }, 0, 100);
+                labelSzamok.setText(nyeroSzamok);
+                buttonSorsol.setText("Sorsol");
+                kesz = false;
+                szamok = new ArrayList<>();
+                nyeroSzamok = "";
+            }
         }
     }
 
@@ -57,5 +70,9 @@ public class HelloController {
         szamok.add(nyeroszam);
         nyeroSzamok += nyeroszam + "   ";
         Platform.runLater(() -> labelSzamok.setText(nyeroSzamok));
+        if(szamok.size() >= 5){
+            kesz = true;
+            Platform.runLater(()->{buttonSorsol.setText("Rendez");});
+        }
     }
 }
