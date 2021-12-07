@@ -22,7 +22,7 @@ public class HelloController {
     private String nyeroSzamok = "";
     private boolean kesz = false;
 
-
+    @FXML
     public void sorsol(MouseEvent mouseEvent) {
         if(!sorsolE){
             if(!kesz){
